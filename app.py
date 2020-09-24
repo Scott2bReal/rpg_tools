@@ -154,7 +154,7 @@ def dice():
 
         total = total + bonus
         print(f'Final result: {total}')
-        return render_template("dice.html", rolls=rolls, total=total, i=(i+1))
+        return render_template("dice.html", rolls=rolls, total=total)
 
     else:
         return render_template("dice.html")
