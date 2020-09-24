@@ -1,27 +1,40 @@
 {% extends 'layout.html' %}
 
 {% block main %}
-    <form class="form-group" action="/dice" method="POST">
-        <div class="form-group">
-            <h5 class="instruction">Number of dice</h5>
-            <input class="form-control" name="dice" type="number" required min="1" placeholder="Dice">
-        </div>
-        <div class="form-group">
-            <h5 class="instruction">Number of sides</h5>
-            <input class="form-control" name="sides" type="number" required min="2" placeholder="Sides">
-        </div>
-        <div class="form-group">
-            <h5 class="instruction">Bonus (if any)</h5>
-            <input class="form-control" name="bonus" type="number" placeholder="Bonus">
-        </div>
-        <button class="btn btn-primary" type="submit">Roll</button>
-    </form>
-        <ul>
-            {% for roll in rolls %}
-            <li>Roll: {{roll}}</li>
-            {% endfor %}
-            {% if total != None %}
-            <h3>{{ total }}</h3>
-            {% endif %}
-        </ul>
+<h3 class="instruction">Number of Dice</h3>
+<input class="form-control" id="dice" type="number" min="1" value="1">
+<h3 class="instruction">Number of Sides</h3>
+<input class="form-control" id="sides" type="number" min="2" value="20">
+<h3 class="instruction">Bonus (if any)</h3>
+<input class="form-control" id="bonus" type="number" value="0">
+
+<button class="btn btn-primary" onclick="document.getElementById('result').innerHTML = roll()">Roll</button>
+
+<h4 class="instruction" id="result"></h4>
+
+
+<script>
+    function roll() {
+
+        /* Gets number of dice and bonus input by user */ 
+        var sides = document.getElementById("sides").value;
+        var dice = document.getElementById("dice").value;
+        var bonus = document.getElementById("bonus").value;
+
+        /* Variables for rolling */
+        var i;
+        var rolls = new Array(dice);
+        var total = 0;
+
+        /* Roll each die in first loop, add them together in second */
+        for (i = 0; i < dice; i++){
+            rolls[i] = (Math.floor(Math.random() * sides + 1));
+            }
+        for (i = 0; i < rolls.length; i++){
+            total = total + rolls[i];
+            }
+         
+        return total + bonus;
+    }
+</script>
 {% endblock %}
