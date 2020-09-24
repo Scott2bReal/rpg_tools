@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+    <form class="form-group" action="/dice" method="POST">
+        <div class="form-group">
+            <h5 class="instruction">Number of dice</h5>
+            <input class="form-control" name="dice" type="number" required min="1" placeholder="Dice">
+        </div>
+        <div class="form-group">
+            <h5 class="instruction">Number of sides</h5>
+            <input class="form-control" name="sides" type="number" required min="2" placeholder="Sides">
+        </div>
+        <div class="form-group">
+            <h5 class="instruction">Bonus (if any)</h5>
+            <input class="form-control" name="bonus" type="number" placeholder="Bonus">
+        </div>
+        <button class="btn btn-primary" type="submit">Roll</button>
+    </form>
+        <ul>
+            {% for roll in rolls %}
+            <li>Roll: {{roll}}</li>
+            {% endfor %}
+            {% if total != None %}
+            <h3>{{ total }}</h3>
+            {% endif %}
+        </ul>
+{% endblock %}
