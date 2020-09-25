@@ -99,6 +99,15 @@ main img
     font-weight: 700;
 }
 
+#login-header
+{
+    font-family: 'Catamaran', sans-serif;
+
+    font-size: 5em;
+
+    font-weight: 700;
+}
+
 #result-title
 {
     padding-top: 15px;
@@ -129,6 +138,10 @@ main img
 .nav-link:hover
 {
     color: #e63b4d;
+}
+.navbar-toggler
+{
+    color: #201c27;
 }
 
 .jumbotron
