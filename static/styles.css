@@ -11,7 +11,6 @@ body{
 
 }
 
-
 main{
     overflow-x: auto;
 
@@ -40,6 +39,13 @@ main .form-control
 main img
 {
     max-width: 100%;
+}
+
+.instruction
+{
+    font-family: 'Catamaran';
+
+    padding: 15px;
 }
 
 .form-group
@@ -123,4 +129,32 @@ main img
 .nav-link:hover
 {
     color: #e63b4d;
+}
+
+.jumbotron
+{
+    background-color: #8f8c8e;
+
+    color: #201c27;
+}
+
+.jumbo-title
+{
+    font-family: 'Catamaran';
+
+    font-size: 5em;
+
+    color: #201c27;
+}
+
+.jumbo-link
+{
+    color: #e63b4d;
+
+    font-family: 'Libre Franklin';
+
+}
+.jumbo-link:hover
+{
+    color: #201c27;
 }

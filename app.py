@@ -116,44 +116,12 @@ def register():
         return render_template("register.html")
 
 
-@app.route("/dice", methods=['GET', 'POST'])
+@app.route("/dice")
+@login_required
 def dice():
-    if request.method == "POST":
-        # Number of dice
-        while True:
-            try:
-                dice = int(request.form.get('dice'))
-                break
-            except ValueError:
-                return apology("How you do this?", 403)
+    return render_template("dice.html")
 
-        # Number of sides
-        while True:
-            try:
-                sides = int(request.form.get('sides'))
-                break
-            except ValueError:
-                return apology("How you do this?", 403)
-
-        # Bonus
-        if request.form.get('bonus') == "":
-            bonus = 0
-        else:
-            bonus = int(request.form.get('bonus'))
-
-        # Calculate roll and print each individual for user
-        i = 0
-        total = 0
-        rolls = []
-        while i < dice:
-            roll = random.randint(1, sides)
-            total = total + roll
-            i += 1
-            rolls.append(roll)
-
-        total = total + bonus
-        print(f'Final result: {total}')
-        return render_template("dice.html", rolls=rolls, total=total, i=(i+1))
-
-    else:
-        return render_template("dice.html")
+@app.route("/hp")
+@login_required
+def hp():
+    return render_template("hp.html")
