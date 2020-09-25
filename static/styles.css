@@ -42,6 +42,10 @@ main img
     max-width: 100%;
 }
 
+.form-group
+{
+    font-family: 'work-sans';
+}
 .card
 {
     display: inline-block;
@@ -71,6 +75,15 @@ main img
     font-size: x-large;
 }
 
+.btn-primary
+{
+    background-color: #e63b4d;
+
+    color: #201c27;
+
+    border-color: #8d8075;
+
+}
 #roller-header
 {
     font-family: 'Catamaran', sans-serif;
@@ -83,4 +96,31 @@ main img
 #result-title
 {
     padding-top: 15px;
+}
+
+#nav
+{
+    background-color: #8d8075;
+}
+
+.navbar-brand
+{
+    color: #201c27;
+
+    font-family: 'Catamaran';
+}
+.navbar-brand:hover
+{
+    color: #e63b4d;
+}
+
+.nav-link
+{
+    color: #201c27;
+
+    font-family: 'Catamaran';
+}
+.nav-link:hover
+{
+    color: #e63b4d;
 }

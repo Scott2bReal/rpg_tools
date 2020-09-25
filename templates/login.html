@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/login" method="post">
+    <form class="form-group" action="/login" method="post">
         <div class="form-group">
             <input autocomplete="off" autofocus class="form-control" name="username" placeholder="Username" type="text">
         </div>
@@ -17,5 +17,5 @@
 {% endblock %}
 
 {% block footer %}
-    Don't have an account? <a href="/register">Make one here!</a>
+    Make an account to save your characters! <a style="color: #8d8075;" href="/register">Click here to register</a>
 {% endblock %}
