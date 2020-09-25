@@ -109,7 +109,6 @@ def register():
 
 
 @app.route("/dice")
-@login_required
 def dice():
     return render_template("dice.html")
 

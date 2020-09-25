@@ -40,7 +40,23 @@
 
         /* Gets number of dice and bonus input by user */ 
         var sides = document.getElementById("sides").value;
+        
+        if (sides < 0){
+            return "Dice must have at least 2 sides!";
+        }
+        else if (sides > 1000){
+            return "That's too many sides!";
+        }
+
         var dice = document.getElementById("dice").value;
+
+        if (dice < 0){
+            dice = 0;
+        }
+        else if (dice > 1000){
+            return "That's too many dice!";
+        }
+
         var bonus = document.getElementById("bonus").value;
 
         /* Variables for rolling */
