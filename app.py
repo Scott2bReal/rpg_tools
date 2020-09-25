@@ -117,7 +117,6 @@ def register():
 
 
 @app.route("/dice", methods=['GET', 'POST'])
-@login_required
 def dice():
     if request.method == "POST":
         # Number of dice

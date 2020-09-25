@@ -1,16 +1,34 @@
 {% extends 'layout.html' %}
 
 {% block main %}
-<h3 class="instruction">Number of Dice</h3>
-<input class="form-control" id="dice" type="number" min="1" value="1">
-<h3 class="instruction">Number of Sides</h3>
-<input class="form-control" id="sides" type="number" min="2" value="20">
-<h3 class="instruction">Bonus (if any)</h3>
-<input class="form-control" id="bonus" type="number" value="0">
+<div class="pb-2 mt-4 mb-2 border-bottom">
+    <h1 id="roller-header">Dice Roller</h1>
+</div>
 
-<button class="btn btn-primary" onclick="document.getElementById('result').innerHTML = roll()">Roll</button>
+<div id="dicecard" class="card">
+    <h4 class="instruction">Number of Dice</h4>
+    <input class="form-control" id="dice" type="number" min="1" value="1">
+</div>
+<div id="sidescard" class="card">
+    <h4 class="instruction">Number of Sides</h4>
+    <input class="form-control" id="sides" type="number" min="2" value="20">
+</div>
+<div id="bonuscard" class="card">
+    <h4 class="instruction">Bonus (if any)</h4>
+    <input class="form-control" id="bonus" type="number" value="0">
+</div>
 
-<h4 class="instruction" id="result"></h4>
+<div class="container-fluid">
+    <button id="roller" class="btn-block" onclick="document.getElementById('result').innerHTML = roll()">Roll</button>
+</div>
+
+<div class="container-fluid" id='result-title'>
+    <h1 class="instruction"><u>Result</u></h1>
+</div>
+
+<div class="container-fluid">
+    <h1 class="instruction" id="result"></h1>
+</div>
 
 
 <script>
@@ -28,13 +46,13 @@
 
         /* Roll each die in first loop, add them together in second */
         for (i = 0; i < dice; i++){
-            rolls[i] = (Math.floor(Math.random() * sides + 1));
+            rolls[i] = (Math.floor(Math.random() * sides) + 1);
             }
         for (i = 0; i < rolls.length; i++){
             total = total + rolls[i];
             }
          
-        return total + bonus;
+        return parseInt(total) + parseInt(bonus);
     }
 </script>
 {% endblock %}
