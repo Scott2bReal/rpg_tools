@@ -110,9 +110,12 @@ def register():
 
 @app.route("/dice")
 def dice():
+    # Javascript dice roller
     return render_template("dice.html")
 
 @app.route("/hp")
 @login_required
 def hp():
-    return render_template("hp.html")
+    if request.method == 'GET':
+        return render_template("hp.html")
+    else:
