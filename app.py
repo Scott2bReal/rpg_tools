@@ -8,10 +8,6 @@ from cs50 import SQL
 
 from helpers import login_required, apology
 
-import os
-
-import random
-
 # Configure application
 app = Flask(__name__)
 
@@ -118,13 +114,15 @@ def dice():
 def hp():
     if request.method == 'GET':
         userid = session['user_id']
-        try:
-            characters = db.execute("SELECT * FROM characters WHERE user_id = :id",
+        characters = db.execute("SELECT name FROM characters WHERE user_id = :id",
                     id = userid)
-        except:
+        if characters == None:
             print("no characters for this user")
-        return render_template("hp.html", characters=characters)
-    # else:
+            return render_template("hp.html", characters = characters)
+        else:
+            return render_template("hp.html", characters=characters)
+    #else:
+
 
 @app.route("/addremove", methods=["GET", "POST"])
 @login_required
@@ -135,7 +133,8 @@ def addremove():
         userid = session['user_id']
         charname = request.form.get('addcharname')
         maxhp = request.form.get('maxhp')
-        #db.execute("INSERT INTO 
-
+        
+        db.execute("INSERT INTO characters (name, current, max, user_id) VALUES (:charname, :current, :maxhp, :userid)", charname=charname,
+                current=maxhp, maxhp=maxhp, userid=userid) 
 
         return redirect("hp")
