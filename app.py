@@ -117,11 +117,25 @@ def dice():
 @login_required
 def hp():
     if request.method == 'GET':
-        return render_template("hp.html")
+        userid = session['user_id']
+        try:
+            characters = db.execute("SELECT * FROM characters WHERE user_id = :id",
+                    id = userid)
+        except:
+            print("no characters for this user")
+        return render_template("hp.html", characters=characters)
     # else:
 
-@app.route("/addremove")
-def createchar():
+@app.route("/addremove", methods=["GET", "POST"])
+@login_required
+def addremove():
     if request.method == 'GET':
         return render_template("addremove.html")
-    # else:
+    else:
+        userid = session['user_id']
+        charname = request.form.get('addcharname')
+        maxhp = request.form.get('maxhp')
+        #db.execute("INSERT INTO 
+
+
+        return redirect("hp")
