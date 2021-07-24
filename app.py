@@ -113,9 +113,9 @@ def dice():
     # Javascript dice roller
     return render_template("dice.html")
 
-# @app.route("/hp")
-# @login_required
-# def hp():
-    # if request.method == 'GET':
-        # return render_template("hp.html")
+@app.route("/hp")
+@login_required
+def hp():
+    if request.method == 'GET':
+        return render_template("hp.html")
     # else:
