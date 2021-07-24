@@ -119,3 +119,9 @@ def hp():
     if request.method == 'GET':
         return render_template("hp.html")
     # else:
+
+@app.route("/addremove")
+def createchar():
+    if request.method == 'GET':
+        return render_template("addremove.html")
+    # else:
