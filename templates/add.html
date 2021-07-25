@@ -17,8 +17,8 @@
                                                   placeholder="Max HP"
                                                   required>
       </div>
-      <button name="addcharbtn" type="submit" class="btn btn-primary" onsubmit="validateAddForm()">Add
-                                                       Character"</button>
+      <button name="addcharbtn" type="submit" class="btn btn-primary"
+        onclick="confirm('Do you want to add this character?')">Add Character</button>
    </form>
    <script>
       function validateAddForm(){
