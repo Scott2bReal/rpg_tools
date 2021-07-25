@@ -5,9 +5,12 @@
 {% endblock %}
 
 {% block main %}
-   <form name="addchar" class="form-group" action="/addremove" method="POST"
+   <form name="addchar" class="form-group" action="/add" method="POST"
                                                                onsubmit="return
-                                                               validateaddform()">
+                                                               confirm(`Do you
+                                                               want to add
+                                                               ${name} to your
+                                                               characters?">
      <h4>Add a Character</h4>
       <div class="form-group">
          <input name="addcharname" class="form-control" autocomplete="off"
@@ -19,19 +22,11 @@
                                                   placeholder="Max HP"
                                                   required>
       </div>
-      <button name="addcharbtn" type="submit" class="btn btn-primary">Add Character</button>
+      <button name="addcharbtn" type="submit" class="btn btn-primary"
+                                              onclick="validateAddForm()">Add Character</button>
    </form>
-   <form name="removechar">
-     <select class="form-group" name="removecharlist">
-       {% for char in characters %}
-       <option value="{{ char.name }}">{{ char.name }}</option>
-       {% endfor %}
-     </select>
-     <button name="removecharbtn" type="submit" class="btn btn-primary">Remove Character</button> 
-   </form>
-
    <script>
-      function validateaddform(){
+      function validateAddForm(){
          let name = document.forms['addchar']['addcharname'].value;
          let maxhp = document.forms['addchar']['maxhp'].value;
          if (name == ""){
@@ -41,10 +36,8 @@
             alert("Max HP must be at least 1");
             return false;
          } else {
-            alert("Character ${name} added!");
             return true;
          }
-      }
    </script>
 
 {% endblock %}

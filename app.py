@@ -120,16 +120,13 @@ def hp():
             return render_template("hp.html", characters = characters)
         else:
             return render_template("hp.html", characters=characters)
-    #else:
 
 
-@app.route("/addremove", methods=["GET", "POST"])
+@app.route("/add", methods=["GET", "POST"])
 @login_required
-def addremove():
+def add():
     if request.method == 'GET':
-        userid = session['user_id']
-        characters = db.execute("SELECT name FROM characters WHERE user_id = :id", id = userid)
-        return render_template("addremove.html", characters = characters)
+        return render_template("add.html")
     else:
         userid = session['user_id']
         addcharname = request.form.get('addcharname')
@@ -137,7 +134,17 @@ def addremove():
         if addcharname != "":
             db.execute("INSERT INTO characters (name, current, max, user_id) VALUES (:charname, :current, :maxhp, :userid)", 
                     charname=addcharname, current=maxhp, maxhp=maxhp, userid=userid) 
+            return redirect("/hp")
         else:
-
-
-        return redirect("hp")
+            return redirect("/hp")
+@app.route("/remove", methods=["GET", "POST"])
+@login_required
+def remove():
+    if request.method == 'GET':
+        userid = session['user_id']
+        characters = db.execute("SELECT name FROM characters WHERE user_id =:id", id = userid)
+        return render_template("remove.html", characters=characters)
+    else:
+        userid = session['user_id']
+        removecharname = request.form.get('removecharname')
+        return redirect("/hp")
