@@ -6,19 +6,19 @@
 
 {% block main %}
 
-  <form name="removechar" class="form-group" action="/remove" method="POST"
-    onsubmit="confirmRemoval()">
+  <form name="removechar" class="form-group" action="/remove" method="POST">
     <select class="form-group" name="removecharlist">
      {% for char in characters %}
      <option value="{{ char.name }}">{{ char.name }}</option>
      {% endfor %}
     </select>
-    <button name="removecharbtn" type="submit" class="btn btn-primary">Remove Character</button> 
+    <button name="removecharbtn" type="submit" class="btn btn-primary"
+                                               onclick="confirmRemoval()">Remove Character</button> 
   </form>
   <script>
     function confirmRemoval(){
       let name = document.forms['removechar']['removecharlist'].value
-      confirm("Remove ${name}?");
+      confirm(`Remove ${name}?`);
         }
   </script>
 

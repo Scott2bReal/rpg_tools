@@ -146,5 +146,6 @@ def remove():
         return render_template("remove.html", characters=characters)
     else:
         userid = session['user_id']
-        removecharname = request.form.get('removecharname')
+        removecharname = request.form.get('removechar')
+        db.execute("DELETE FROM characters WHERE name = :name", name = removecharname)
         return redirect("/hp")
