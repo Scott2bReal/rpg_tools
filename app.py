@@ -114,8 +114,7 @@ def dice():
 def hp():
     if request.method == 'GET':
         userid = session['user_id']
-        characters = db.execute("SELECT name FROM characters WHERE user_id = :id",
-                    id = userid)
+        characters = db.execute("SELECT name FROM characters WHERE user_id = :id", id = userid)
         if characters == None:
             print("no characters for this user")
             return render_template("hp.html", characters = characters)
@@ -128,13 +127,17 @@ def hp():
 @login_required
 def addremove():
     if request.method == 'GET':
-        return render_template("addremove.html")
+        userid = session['user_id']
+        characters = db.execute("SELECT name FROM characters WHERE user_id = :id", id = userid)
+        return render_template("addremove.html", characters = characters)
     else:
         userid = session['user_id']
-        charname = request.form.get('addcharname')
+        addcharname = request.form.get('addcharname')
         maxhp = request.form.get('maxhp')
-        
-        db.execute("INSERT INTO characters (name, current, max, user_id) VALUES (:charname, :current, :maxhp, :userid)", charname=charname,
-                current=maxhp, maxhp=maxhp, userid=userid) 
+        if addcharname != "":
+            db.execute("INSERT INTO characters (name, current, max, user_id) VALUES (:charname, :current, :maxhp, :userid)", 
+                    charname=addcharname, current=maxhp, maxhp=maxhp, userid=userid) 
+        else:
+
 
         return redirect("hp")

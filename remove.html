@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Remove Character
+{% endblock %}
+
+{% block main %}
+
+  <form name="removechar">
+    <select class="form-group" name="removecharlist">
+     {% for char in characters %}
+     <option value="{{ char.name }}">{{ char.name }}</option>
+     {% endfor %}
+    </select>
+    <button name="removecharbtn" type="submit" class="btn btn-primary">Remove Character</button> 
+  </form>
+
+{% endblock %}

@@ -6,14 +6,15 @@
 
 {% block main %}
     <div class="container-fluid">
-      <button id="newchar" class="btn-block" onclick="location = '/addremove'" >Add or
-      Remove Character</button>
+      <button id="newchar" class="btn-block" onclick="location = '/add'" >Add Character</button>
     </div>
+    <div class="container-fluid">
+      <button id="removechar" class="btn-block" onclick="location = '/remove'">Remove Character</button>
     <form name="chars">
       <select class="form-control" name="symbol" required>
         {% for item in characters %}
         <option value="{{ item.name }}">{{ item.name }}</option>
+        {% endfor %}
       </select>
     </form>
-        {% endfor %}
 {% endblock %}

@@ -1,13 +1,14 @@
 {% extends "layout.html" %}
 
 {% block title %}
-   Add or Remove a Character 
+  Add Character
 {% endblock %}
 
 {% block main %}
    <form name="addchar" class="form-group" action="/addremove" method="POST"
                                                                onsubmit="return
-                                                               validateform()">
+                                                               validateaddform()">
+     <h4>Add a Character</h4>
       <div class="form-group">
          <input name="addcharname" class="form-control" autocomplete="off"
                                                         placeholder="Name"
@@ -18,10 +19,19 @@
                                                   placeholder="Max HP"
                                                   required>
       </div>
-      <button type="submit" class="btn btn-primary">Add Character</button>
+      <button name="addcharbtn" type="submit" class="btn btn-primary">Add Character</button>
    </form>
+   <form name="removechar">
+     <select class="form-group" name="removecharlist">
+       {% for char in characters %}
+       <option value="{{ char.name }}">{{ char.name }}</option>
+       {% endfor %}
+     </select>
+     <button name="removecharbtn" type="submit" class="btn btn-primary">Remove Character</button> 
+   </form>
+
    <script>
-      function validateform(){
+      function validateaddform(){
          let name = document.forms['addchar']['addcharname'].value;
          let maxhp = document.forms['addchar']['maxhp'].value;
          if (name == ""){
@@ -35,4 +45,6 @@
             return true;
          }
       }
+   </script>
+
 {% endblock %}
