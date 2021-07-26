@@ -136,35 +136,26 @@ def hp():
             return render_template("hp.html", charlist=charlist)
     else:
         userid = session['user_id']
-        charname = request.form.get('dmgcharlist')
+        charname = request.form.get('character')
         current = db.execute("SELECT current FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
         maxhp = db.execute("SELECT max FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
-        # Debug
-        print(current)
-        print(maxhp)
-         
-        if request.form.get('damage'):
+        current = current[0]['current']
+        maxhp= maxhp[0]['max']
+                
+        if request.form['button'] == 'damage':
             # Current HP can be negative
-            damage = request.form.get('damage')
+            damage = int(request.form.get('hpmod'))
             current = current - damage
-            # Debug 
-            print(current)
-            # db.execute("UPDATE characters SET current=:current WHERE name =
-                    # :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
+            db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
             return redirect('/hp')
         else:
             # Healing cannot exceed max hp
-            healing = request.form.get('healing')
+            healing = int(request.form.get('hpmod'))
             if (healing + current > maxhp): 
-                print('maxing out hp')
                 return redirect('/hp')
             else:
                 current = current + healing
-                # db.execute("UPDATE characters SET current=:current WHERE name =
-                # :charname AND user_id = :userid", current=current,
-                # charname=charname, userid=userid)
-                # Debug
-                print(current)
+                db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
                 return redirect('/hp')
 
 

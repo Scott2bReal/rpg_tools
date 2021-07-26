@@ -15,19 +15,19 @@
                                                           confirmDamage()">
       <div class="form-group">
         <h4>Select Character</h4>
-        <select class="form-group" name="dmgcharlist">
+        <select class="form-group" name="character">
           {% for char in charlist %}
           <option value="{{ char.name }}">{{ char.name }}</option>
           {% endfor %}
         </select>
       </div>
       <div class="form-group">
-        <input class="form-group" name="newcurrent" type="number"
+        <input class="form-group" name="hpmod" type="number"
                                                     placeholder="Damage or Healing" min="0">
       </div>
       <div>
-      <button class="btn btn-primary" name="damage">Damage</button>
-      <button class="btn btn-primary" name="healing">Healing</button>
+      <button class="btn btn-primary" name="button" value="damage">Damage</button>
+      <button class="btn btn-primary" name="button" value="healing">Healing</button>
       </div>
     </form>
 
