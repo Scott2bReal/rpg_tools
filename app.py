@@ -1,7 +1,7 @@
-from flask import Flask, jsonify, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
-from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
+#from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from cs50 import SQL
@@ -137,15 +137,16 @@ def add():
             return redirect("/hp")
         else:
             return redirect("/hp")
+
 @app.route("/remove", methods=["GET", "POST"])
 @login_required
 def remove():
     if request.method == 'GET':
         userid = session['user_id']
-        characters = db.execute("SELECT name FROM characters WHERE user_id =:id", id = userid)
+        characters = db.execute("SELECT name FROM characters WHERE user_id =:id", id=userid)
         return render_template("remove.html", characters=characters)
     else:
         userid = session['user_id']
-        removecharname = request.form.get('removechar')
-        db.execute("DELETE FROM characters WHERE name = :name", name = removecharname)
+        removecharname = request.form.get('removecharlist')
+        db.execute("DELETE FROM characters WHERE name = :name AND user_id =:id", name=removecharname, id=userid)
         return redirect("/hp")
