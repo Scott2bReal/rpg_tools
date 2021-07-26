@@ -113,13 +113,34 @@ def dice():
 @login_required
 def hp():
     if request.method == 'GET':
+        # List of characters to send to index.html
+        charlist = []
+
         userid = session['user_id']
-        characters = db.execute("SELECT name FROM characters WHERE user_id = :id", id = userid)
+        characters = db.execute("SELECT name, current, max FROM characters WHERE user_id = :id", id = userid)
+        # Debug
+        print(characters)
+
+        # Just in case they don't have any characters yet
         if characters == None:
             print("no characters for this user")
             return render_template("hp.html", characters = characters)
         else:
-            return render_template("hp.html", characters=characters)
+            for character in characters:
+                charinfo = {"name": character['name'],
+                            "current": character['current'],
+                            "max": character['max']
+                }
+
+                # index.html needs a list of character dicts w/ their info
+                # Debug
+                print(charinfo)
+                charlist.append(charinfo)
+
+            # Debug
+            print(charlist)
+                
+            return render_template("hp.html", charlist=charlist)
 
 
 @app.route("/add", methods=["GET", "POST"])
