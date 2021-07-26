@@ -5,7 +5,13 @@
 {% endblock %}
 
 {% block main %}
-    <div class="jumbotron">
-        <h1 class="jumbo-title">Under construction</h1>
-        <h3 class="jumbo-text">Check out the <a class="jumbo-link" href="/dice">Dice Roller</a></h3>
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+      <h1 id="login-header">RPG Tools Home</h1>
+    </div>
+    <div class="container-fluid">
+      <button class="btn-block" onclick="location='/dice'">Dice Roller</button>
+    </div>
+    <div class="container-fluid">
+      <button class="btn-block" onclick="location='/hp'">HP Tracker</button>
+    </div>
 {% endblock %}

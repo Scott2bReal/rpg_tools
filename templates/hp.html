@@ -5,21 +5,35 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container-fluid">
-      <button id="newchar" class="btn-block" onclick="location = '/add'" >Add Character</button>
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+      <h1 id="login-header">HP Tracker</h1>
     </div>
-    <div class="container-fluid">
-      <button id="removechar" class="btn-block" onclick="location = '/remove'">Remove Character</button>
-    </div>
-    <div class="container-fluid">
-      <button id="editchar" class="btn-block" onclick="location = '/edit'">Edit Character</button>
-    </div>
-    <h4>Select a Character</h4>
-    <form name="chars">
-      <select class="form-control" name="symbol" required>
+
+    <div class="pb-2 mt-4 mb-2 border-bottom">
+    <form name="chars" class="form-group" action="/hp" method="POST" onsubmit="return confirmHP()">
+      <h4>Select a Character</h4>
+      <select class="form-control" name="name" required>
         {% for item in characters %}
         <option value="{{ item.name }}">{{ item.name }}</option>
         {% endfor %}
       </select>
+      <h5>Damage or Healing</h5>
+      <input class="form-control" name="damage" autocomplete="off" type="number" required>
+      <button class="btn btn-primary">Damage</button>
+      <button class="btn btn-primary">Healing</button>
     </form>
+    </div>
+
+    <div class="container-fluid">
+      <button id="newchar" class="btn-block" onclick="location = '/add'" >Add Character</button>
+    </div>
+
+    <div class="container-fluid">
+      <button id="removechar" class="btn-block" onclick="location = '/remove'">Remove Character</button>
+    </div>
+
+    <div class="container-fluid">
+      <button id="editchar" class="btn-block" onclick="location = '/edit'">Edit
+        Character Max HP</button>
+    </div>
 {% endblock %}

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-  <form name="addchar" class="form-group" action="/add" method="POST">
+  <form name="addchar" class="form-group" action="/add" method="POST" onsubmit="return validateAddForm()">
      <h4>Add a Character</h4>
       <div class="form-group">
          <input name="addcharname" class="form-control" autocomplete="off"
@@ -17,22 +17,14 @@
                                                   placeholder="Max HP"
                                                   required>
       </div>
-      <button name="addcharbtn" type="submit" class="btn btn-primary"
-        onclick="confirm('Do you want to add this character?')">Add Character</button>
+      <button name="addcharbtn" type="submit" class="btn btn-primary">Add Character</button>
    </form>
    <script>
-      function validateAddForm(){
-         let name = document.forms['addchar']['addcharname'].value;
-         let maxhp = document.forms['addchar']['maxhp'].value;
-         if (name == ""){
-            alert("Please enter a name");
-            return false;
-         } else if (maxhp < 1){
-            alert("Max HP must be at least 1");
-            return false;
-         } else {
-             return confirm(`Do you want to add ${name} to your character list?`) 
-         }
+     function validateAddForm(){
+       let name = document.forms['addchar']['addcharname'].value;
+       let maxhp = document.forms['addchar']['maxhp'].value;
+       return confirm(`Add ${name} with hp of ${maxhp} to characters?`); 
+                }
    </script>
 
 {% endblock %}

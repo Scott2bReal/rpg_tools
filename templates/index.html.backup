@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    RPG Tools Home
+{% endblock %}
+
+{% block main %}
+    <div class="jumbotron">
+        <h1 class="jumbo-title">Under construction</h1>
+        <h3 class="jumbo-text">Check out the <a class="jumbo-link" href="/dice">Dice Roller</a></h3>
+{% endblock %}
