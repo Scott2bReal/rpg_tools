@@ -109,7 +109,7 @@ def dice():
     # Javascript dice roller
     return render_template("dice.html")
 
-@app.route("/hp")
+@app.route("/hp", methods=["GET", "POST"])
 @login_required
 def hp():
     if request.method == 'GET':
@@ -118,8 +118,6 @@ def hp():
 
         userid = session['user_id']
         characters = db.execute("SELECT name, current, max FROM characters WHERE user_id = :id", id = userid)
-        # Debug
-        print(characters)
 
         # Just in case they don't have any characters yet
         if characters == None:
@@ -133,14 +131,42 @@ def hp():
                 }
 
                 # index.html needs a list of character dicts w/ their info
-                # Debug
-                print(charinfo)
                 charlist.append(charinfo)
 
-            # Debug
-            print(charlist)
-                
             return render_template("hp.html", charlist=charlist)
+    else:
+        userid = session['user_id']
+        charname = request.form.get('dmgcharlist')
+        current = db.execute("SELECT current FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
+        maxhp = db.execute("SELECT max FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
+        # Debug
+        print(current)
+        print(maxhp)
+         
+        if request.form.get('damage'):
+            # Current HP can be negative
+            damage = request.form.get('damage')
+            current = current - damage
+            # Debug 
+            print(current)
+            # db.execute("UPDATE characters SET current=:current WHERE name =
+                    # :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
+            return redirect('/hp')
+        else:
+            # Healing cannot exceed max hp
+            healing = request.form.get('healing')
+            if (healing + current > maxhp): 
+                print('maxing out hp')
+                return redirect('/hp')
+            else:
+                current = current + healing
+                # db.execute("UPDATE characters SET current=:current WHERE name =
+                # :charname AND user_id = :userid", current=current,
+                # charname=charname, userid=userid)
+                # Debug
+                print(current)
+                return redirect('/hp')
+
 
 
 @app.route("/add", methods=["GET", "POST"])
@@ -185,3 +211,4 @@ def edit():
         newmax = request.form.get('newmax')
         db.execute("UPDATE characters SET max=:newmax WHERE name = :charname AND user_id = :userid", newmax=newmax, charname=charname, userid=userid)
         return redirect("/hp")
+

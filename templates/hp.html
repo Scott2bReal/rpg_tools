@@ -9,6 +9,29 @@
       <h1 id="login-header">HP Tracker</h1>
     </div>
 
+    <!-- Form for editing current hp -->
+    <form name="chars" class="form-group" action="/hp" method="POST"
+                                                          onsubmit="return
+                                                          confirmDamage()">
+      <div class="form-group">
+        <h4>Select Character</h4>
+        <select class="form-group" name="dmgcharlist">
+          {% for char in charlist %}
+          <option value="{{ char.name }}">{{ char.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <input class="form-group" name="newcurrent" type="number"
+                                                    placeholder="Damage or Healing" min="0">
+      </div>
+      <div>
+      <button class="btn btn-primary" name="damage">Damage</button>
+      <button class="btn btn-primary" name="healing">Healing</button>
+      </div>
+    </form>
+
+    <!-- Character Information -->
     <h3>Characters</h3>  
     <table class="table table-striped">
       <thead>
@@ -27,6 +50,8 @@
       {% endfor %}
     </table>
 
+
+    <!-- Buttons for database edit actions -->
     <div class="container-fluid">
       <button id="newchar" class="btn-block" onclick="location = '/add'" >Add Character</button>
     </div>
