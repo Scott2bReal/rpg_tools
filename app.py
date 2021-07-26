@@ -150,3 +150,17 @@ def remove():
         removecharname = request.form.get('removecharlist')
         db.execute("DELETE FROM characters WHERE name = :name AND user_id =:id", name=removecharname, id=userid)
         return redirect("/hp")
+
+@app.route("/edit", methods=["GET", "POST"])
+@login_required
+def edit():
+    if request.method == 'GET':
+        userid = session['user_id']
+        characters = db.execute("SELECT name FROM characters WHERE user_id =:id", id=userid)
+        return render_template("edit.html", characters=characters)
+    else:
+        userid = session['user_id']
+        charname = request.form.get('editcharlist')
+        newmax = request.form.get('newmax')
+        db.execute("UPDATE characters SET max=:newmax WHERE name = :charname AND user_id = :userid", newmax=newmax, charname=charname, userid=userid)
+        return redirect("/hp")

@@ -1,24 +1,25 @@
 {% extends "layout.html" %}
 
 {% block title %}
-  Remove Character
+  Edit Character
 {% endblock %}
 
 {% block main %}
 
-  <form name="removechar" class="form-group" action="/remove" method="POST">
-    <select class="form-group" name="removecharlist">
+  <form name="editchar" class="form-group" action="/edit" method="POST">
+    <select class="form-group" name="editcharlist">
      {% for char in characters %}
      <option value="{{ char.name }}">{{ char.name }}</option>
      {% endfor %}
     </select>
-    <button name="removecharbtn" type="submit" class="btn btn-primary"
-                                               onclick="confirmRemoval()">Remove Character</button> 
+    <button name="editcharbtn" type="submit" class="btn btn-primary"
+                                               onclick="confirmEdit()">Edit
+                                               Character Max HP</button> 
   </form>
   <script>
-    function confirmRemoval(){
-      let name = document.forms['removechar']['removecharlist'].value
-      confirm(`Remove ${name}?`);
+    function confirmEdit(){
+      let name = document.forms['editchar']['editcharlist'].value
+      confirm(`Edit ${name}?`);
         }
   </script>
 

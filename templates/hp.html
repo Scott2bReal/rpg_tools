@@ -10,6 +10,10 @@
     </div>
     <div class="container-fluid">
       <button id="removechar" class="btn-block" onclick="location = '/remove'">Remove Character</button>
+    </div>
+    <div class="container-fluid">
+      <button id="editchar" class="btn-block" onclick="location = '/edit'">Edit Character</button>
+    </div>
     <form name="chars">
       <select class="form-control" name="symbol" required>
         {% for item in characters %}

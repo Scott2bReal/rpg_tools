@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Edit Character Max HP
+{% endblock %}
+
+{% block main %}
+
+  <form name="editchar" class="form-group" action="/edit" method="POST">
+    <div class="form-group">
+      <select class="form-group" name="editcharlist">
+       {% for char in characters %}
+       <option value="{{ char.name }}">{{ char.name }}</option>
+       {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <input class="form-control" name="newmax" type="number" placeholder="New Max HP" min="1" required>
+    </div>
+    <button class="btn btn-primary" type="submit" onclick="confirmEdit()">Set New Max HP</button>
+  </form>
+  <script>
+    function confirmEdit(){
+      let name = document.forms['editchar']['editcharlist'].value;
+      let newmax = document.forms['editchar']['newmax'].value;
+      confirm(`Set new max HP for ${name} to ${newmax}?`);
+      }
+  </script>
+
+
+
+{% endblock %}
