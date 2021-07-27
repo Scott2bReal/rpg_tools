@@ -36,10 +36,27 @@ healing value as an input. Instead of needing to do mental math to find the new
 current hp of the character, a user can instead input the damage or healing
 received and their character's HP will be updated.
 
-#### Styling and Color Palette
+#### Adding Characters
+
+Users can add a character to the account, and will be prompted to provide a
+maximum HP for that characters. The tool will only accept a minimum of 1 for the
+maximum HP.
+
+#### Removing Characters
+
+Users can remove characters from their accounts on this page. Again, the program
+will ask the user to confirm the removal of the character.
+
+#### Editing Maximum HP
+
+Users can edit the maximum HP of their characters (if, for example, the
+character's level increases).
+
+### Styling and Color Palette
 
 In order to come up with the color scheme for the site I used the wonderful
 tool at [colormind.io](colormind.io), which generates color palettes based on
 the machine learning algorithm the developer came up with. I then made some
 tweaks to [Bootstrap](https://getbootstrap.com) to make the buttons, cards, and
-headers all look like I wanted.
+headers all look like I wanted. I also added a little dice icon to display in
+the tab corner.
