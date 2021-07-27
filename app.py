@@ -139,8 +139,8 @@ def hp():
         charname = request.form.get('character')
         current = db.execute("SELECT current FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
         maxhp = db.execute("SELECT max FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
-        current = current[0]['current']
-        maxhp= maxhp[0]['max']
+        current = int(current[0]['current'])
+        maxhp= int(maxhp[0]['max'])
                 
         if request.form['button'] == 'damage':
             # Current HP can be negative
@@ -149,12 +149,14 @@ def hp():
             db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
             return redirect('/hp')
         else:
-            # Healing cannot exceed max hp
             healing = int(request.form.get('hpmod'))
-            if (healing + current > maxhp): 
+            current = current + healing
+            # Healing cannot exceed max hp
+            if (current > maxhp): 
+                current = maxhp
+                db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
                 return redirect('/hp')
             else:
-                current = current + healing
                 db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
                 return redirect('/hp')
 
