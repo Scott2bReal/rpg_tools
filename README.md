@@ -5,6 +5,10 @@ Games. Also includes a dice roller!
 
 Made as my final project for Harvard's CS50
 
+#### Video Demo 
+
+[RPG Tools](https://youtu.be/x9eLf6_0TF4)
+
 ## Features
 
 * Dice Roller
@@ -55,7 +59,7 @@ character's level increases).
 ### Styling and Color Palette
 
 In order to come up with the color scheme for the site I used the wonderful
-tool at [colormind.io](colormind.io), which generates color palettes based on
+tool at [colormind.io](http://colormind.io), which generates color palettes based on
 the machine learning algorithm the developer came up with. I then made some
 tweaks to [Bootstrap](https://getbootstrap.com) to make the buttons, cards, and
 headers all look like I wanted. I also added a little dice icon to display in
