@@ -5,7 +5,7 @@ Games. Also includes a dice roller!
 
 Made as my final project for Harvard's CS50
 
-#### Video Demo 
+### Video Demo 
 
 [RPG Tools](https://youtu.be/x9eLf6_0TF4)
 
@@ -14,6 +14,8 @@ Made as my final project for Harvard's CS50
 * Dice Roller
 * User Accounts
 * HP Tracker
+
+## Description
 
 ### Dice Roller
 
@@ -49,7 +51,10 @@ maximum HP.
 #### Removing Characters
 
 Users can remove characters from their accounts on this page. Again, the program
-will ask the user to confirm the removal of the character.
+will ask the user to confirm the removal of the character. One feature that I
+want to add in the future would be a more robust confirmation. For example,
+asking the user to type the name of the character they wish to remove as a
+confirmation.
 
 #### Editing Maximum HP
 
@@ -59,8 +64,25 @@ character's level increases).
 ### Styling and Color Palette
 
 In order to come up with the color scheme for the site I used the wonderful
-tool at [colormind.io](http://colormind.io), which generates color palettes based on
-the machine learning algorithm the developer came up with. I then made some
+tool at [colormind.io](http://colormind.io), which generates color palettes based
+on the machine learning algorithm the developer came up with. I then made some
 tweaks to [Bootstrap](https://getbootstrap.com) to make the buttons, cards, and
 headers all look like I wanted. I also added a little dice icon to display in
 the tab corner.
+
+#### Buttons
+
+I made the buttons on the HP Tracker very big because I wanted it to translate
+well to a mobile format. While playing TTRPGs online it is easy to access
+websites and all kinds of tools, but in person sometimes the easiest thing is to
+use a phone or tablet. Having quick access to the HP Tracker and being able to
+add remove and edit characters easily was something I thought was important.
+
+#### Navbar
+
+I started with a Bootstrap navbar, and tweaked the colors and placement of some
+elements to make it look how I wanted. I also made it dynamically display
+options available to the user based on whether or not they were logged in.
+Because the Dice Roller is available without a user account, that is always on
+the navbar. The HP Tracker, on the other, needs an account, so that is only
+present when a user is logged in.
