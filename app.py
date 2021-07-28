@@ -125,6 +125,13 @@ def hp():
             return render_template("hp.html", characters = characters)
         else:
             for character in characters:
+
+                # Must avoid maxhp < current
+                if character['current'] > character['max']:
+                    character['current'] = character['max']
+                    db.execute("UPDATE characters SET current=:current WHERE name=:charname AND user_id=:userid",
+                            current=character['current'], charname=character['name'], userid=userid)
+
                 charinfo = {"name": character['name'],
                             "current": character['current'],
                             "max": character['max']
