@@ -50,12 +50,15 @@ def login():
     if request.method == "POST":
 
         # Query database for username
-        rows = db.execute("SELECT * FROM users WHERE username = :username",
-                          username=request.form.get("username"))
+        rows = db.execute("""SELECT * 
+                             FROM users 
+                             WHERE username = :username""",
+                             username=request.form.get("username"))
 
         # Ensure username exists and password is correct
-        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username or password", 403)
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], 
+                request.form.get("password")):
+                return apology("invalid username or password", 403)
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -85,7 +88,10 @@ def register():
     if request.method == "POST":
 
         # Check to see if username already exists
-        rows = db.execute("SELECT username FROM users WHERE username = :username", username=request.form.get('user'))
+        rows = db.execute("""SELECT username 
+                             FROM users 
+                             WHERE username = :username""", 
+                             username=request.form.get('user'))
 
         # If it does, error message!
         if len(rows) > 0:
@@ -93,9 +99,11 @@ def register():
 
         # If not, put them in the database
         else:
-            db.execute("INSERT INTO users (username, hash) VALUES (:username, :hash)", 
-                       username=request.form.get('user'), hash=generate_password_hash(request.form.get('pwd'), 
-                                                                      method='pbkdf2:sha256', salt_length=8))
+            db.execute("""INSERT INTO users (username, hash) 
+                          VALUES (:username, :hash)""", 
+                          username=request.form.get('user'), 
+                          hash=generate_password_hash(request.form.get('pwd'), 
+                          method='pbkdf2:sha256', salt_length=8))
         
         return render_template("/login.html")
 
@@ -117,7 +125,10 @@ def hp():
         charlist = []
 
         userid = session['user_id']
-        characters = db.execute("SELECT name, current, max FROM characters WHERE user_id = :id", id = userid)
+        characters = db.execute("""SELECT name, current, max 
+                                   FROM characters 
+                                   WHERE user_id = :userid""", 
+                                   userid = userid)
 
         # Just in case they don't have any characters yet
         if characters == None:
@@ -129,8 +140,13 @@ def hp():
                 # Must avoid maxhp < current
                 if character['current'] > character['max']:
                     character['current'] = character['max']
-                    db.execute("UPDATE characters SET current=:current WHERE name=:charname AND user_id=:userid",
-                            current=character['current'], charname=character['name'], userid=userid)
+                    db.execute("""UPDATE characters 
+                                  SET current=:current 
+                                  WHERE name=:charname 
+                                  AND user_id=:userid""",
+                                  current=character['current'], 
+                                  charname=character['name'], 
+                                  userid=userid)
 
                 charinfo = {"name": character['name'],
                             "current": character['current'],
@@ -144,8 +160,18 @@ def hp():
     else:
         userid = session['user_id']
         charname = request.form.get('character')
-        current = db.execute("SELECT current FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
-        maxhp = db.execute("SELECT max FROM characters WHERE user_id = :userid AND name = :charname", userid=userid, charname=charname)
+        current = db.execute("""SELECT current 
+                                FROM characters 
+                                WHERE user_id = :userid 
+                                AND name = :charname""", 
+                                userid=userid, 
+                                charname=charname)
+        maxhp = db.execute("""SELECT max 
+                              FROM characters 
+                              WHERE user_id = :userid 
+                              AND name = :charname""", 
+                              userid=userid, 
+                              charname=charname)
         current = int(current[0]['current'])
         maxhp= int(maxhp[0]['max'])
                 
@@ -153,7 +179,13 @@ def hp():
             # Current HP can be negative
             damage = int(request.form.get('hpmod'))
             current = current - damage
-            db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
+            db.execute("""UPDATE characters 
+                          SET current=:current 
+                          WHERE name = :charname 
+                          AND user_id = :userid""", 
+                          current=current, 
+                          charname=charname, 
+                          userid=userid)
             return redirect('/hp')
         else:
             healing = int(request.form.get('hpmod'))
@@ -161,10 +193,20 @@ def hp():
             # Healing cannot exceed max hp
             if (current > maxhp): 
                 current = maxhp
-                db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
+                db.execute("""UPDATE characters 
+                              SET current=:current 
+                              WHERE name= :charname 
+                              AND user_id = :userid""", 
+                              current=current, charname=charname, userid=userid)
                 return redirect('/hp')
             else:
-                db.execute("UPDATE characters SET current=:current WHERE name = :charname AND user_id = :userid", current=current, charname=charname, userid=userid)
+                db.execute("""UPDATE characters 
+                              SET current=:current 
+                              WHERE name = :charname 
+                              AND user_id = :userid""", 
+                              current=current, 
+                              charname=charname, 
+                              userid=userid)
                 return redirect('/hp')
 
 
@@ -179,8 +221,12 @@ def add():
         addcharname = request.form.get('addcharname')
         maxhp = request.form.get('maxhp')
         if addcharname != "":
-            db.execute("INSERT INTO characters (name, current, max, user_id) VALUES (:charname, :current, :maxhp, :userid)", 
-                    charname=addcharname, current=maxhp, maxhp=maxhp, userid=userid) 
+            db.execute("""INSERT INTO characters (name, current, max, user_id) 
+            VALUES (:charname, :current, :maxhp, :userid)""", 
+            charname=addcharname, 
+            current=maxhp, 
+            maxhp=maxhp, 
+            userid=userid) 
             return redirect("/hp")
         else:
             return redirect("/hp")
@@ -190,12 +236,19 @@ def add():
 def remove():
     if request.method == 'GET':
         userid = session['user_id']
-        characters = db.execute("SELECT name FROM characters WHERE user_id =:id", id=userid)
+        characters = db.execute("""SELECT name 
+                                   FROM characters 
+                                   WHERE user_id =:userid""", 
+                                   userid=userid)
         return render_template("remove.html", characters=characters)
     else:
         userid = session['user_id']
         removecharname = request.form.get('removecharlist')
-        db.execute("DELETE FROM characters WHERE name = :name AND user_id =:id", name=removecharname, id=userid)
+        db.execute("""DELETE FROM characters 
+                      WHERE name = :name 
+                      AND user_id =:userid""", 
+                      name=removecharname, 
+                      userid=userid)
         return redirect("/hp")
 
 @app.route("/edit", methods=["GET", "POST"])
@@ -203,12 +256,21 @@ def remove():
 def edit():
     if request.method == 'GET':
         userid = session['user_id']
-        characters = db.execute("SELECT name FROM characters WHERE user_id =:id", id=userid)
+        characters = db.execute("""SELECT name 
+                                   FROM characters 
+                                   WHERE user_id =:userid""", 
+                                   userid=userid)
         return render_template("edit.html", characters=characters)
     else:
         userid = session['user_id']
         charname = request.form.get('editcharlist')
         newmax = request.form.get('newmax')
-        db.execute("UPDATE characters SET max=:newmax WHERE name = :charname AND user_id = :userid", newmax=newmax, charname=charname, userid=userid)
+        db.execute("""UPDATE characters 
+                      SET max=:newmax 
+                      WHERE name = :charname 
+                      AND user_id = :userid""", 
+                      newmax=newmax, 
+                      charname=charname, 
+                      userid=userid)
         return redirect("/hp")
 
